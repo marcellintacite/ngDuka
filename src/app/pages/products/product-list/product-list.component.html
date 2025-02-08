@@ -1,0 +1,49 @@
+<main class="max-width">
+  <header>
+    <h3>{{ sectionTitle() }}</h3>
+    @if(queryCount()){
+
+    <a [routerLink]="'products/' + query()" class="link">
+      <span> Voir plus </span>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        height="24px"
+        viewBox="0 -960 960 960"
+        width="24px"
+      >
+        <path
+          d="M647-440H160v-80h487L423-744l57-56 320 320-320 320-57-56 224-224Z"
+        />
+      </svg>
+    </a>
+    }
+  </header>
+
+  @if(loading()){
+  <app-skeleton-product-list-loading />
+  }@else{
+  <div class="products">
+    @for (product of products; track $index) {
+    <a [routerLink]="'/product/' + product.id" class="product">
+      <div class="image-container">
+        <img
+          [ngSrc]="product.image"
+          [alt]="product.title"
+          fill
+          [priority]="
+            product.image ===
+            'https://fakestoreapi.com/img/71YXzeOuslL._AC_UY879_.jpg'
+          "
+        />
+      </div>
+      <div class="product-info">
+        <h4 class="truncate">{{ product.title }}</h4>
+        <span
+          ><b>{{ product.price }} $</b></span
+        >
+      </div>
+    </a>
+    }
+  </div>
+  }
+</main>
